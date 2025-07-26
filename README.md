@@ -27,5 +27,39 @@ Luego a traves del método map compararia cada elemento con una condición. Si c
 ```javascript
 let arrayComparador = nombreAmigoArray.map(item => item === ' ' ? ' ' : '%' );
 ```
-Al final deberia comparar ambos arrays , y de ser distintos aparecería la alerta. Pero claro, esta visión seguia siendo acotada al caracter espacio (o sucesión de este) sin tener en cuenta los números u otros símbolos. 
+Al final deberia comparar ambos arrays , y de ser distintos aparecería la alerta. Pero claro, esta visión seguia siendo acotada al carácter espacio (o sucesiones de este) sin tener en cuenta los números u otros símbolos. 
 
+Conclusión final (por ahora)  
+Revisando la documentación me encontre con el método charCodeAt() , que devuelve el código UNICODE del elemento en la posicion que se le indique,
+por tanto, para acotar el rango(sino deberia tener en cuentas los valores decimales de las letras mayúsculas Y minúsculas), convierto el valor ingresado a mayúscula (estas tienen el valor decimal asignado del 65 al 90 y la ñ = 209)
+
+```javascript
+let nombreAmigo = (document.getElementById('amigo').value).toUpperCase();
+```
+Y realizo la correspondiente validación 
+
+```javascript
+function validarNombreIngresado(nombreUsuario){
+    let nombreAmigoArray = [];
+
+    if(nombreUsuario === ''){
+        alert('El campo está vacío')
+        return false;
+    }else{
+            for(let i=0 ; i < nombreUsuario.length ; i++){
+                nombreAmigoArray[i] = nombreUsuario.charCodeAt(i);
+
+                if (nombreAmigoArray[i] < 65 || (nombreAmigoArray[i] > 90 && nombreAmigoArray[i] != 209) ){
+                    alert('Solo se permiten letras como caracter válido');
+                    return false;
+                    
+                }
+            }
+        }
+
+
+}
+
+
+```
+Esto sigue siendo una solución parcial ya que no tiene en cuenta los carácteres con tilde o los nombres completos (nombre y apellido) , pero sigue siendo una mejora respecto a la medida inicial.  
