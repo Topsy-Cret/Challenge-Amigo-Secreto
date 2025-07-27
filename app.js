@@ -1,21 +1,21 @@
 // El principal objetivo de este desafío es fortalecer tus habilidades en lógica de programación. Aquí deberás desarrollar la lógica para resolver el problema.
 let listaAmigos = [];
- let campoAmigo = document.getElementById('amigo');
+let campoAmigo = document.getElementById('amigo');
+let ulListaAmigos = document.getElementById('listaAmigos');
+let resultado = document.getElementById('resultado')
 
 function agregarAmigo(){
     
     let nombreAmigo = (campoAmigo.value).toUpperCase();
-    console.log(nombreAmigo);
-    
     let validacionOk = validarNombreIngresado(nombreAmigo);
-    console.log(validacionOk);
 
     if(validacionOk != false){
         listaAmigos.push(nombreAmigo);
         campoAmigo.value = '' ;
         mostrarLista(listaAmigos);
-
         console.log(listaAmigos);
+        
+        
     }else{
         campoAmigo.value = '' ;
     }
@@ -23,10 +23,11 @@ function agregarAmigo(){
     
 }
 
+// validacion de nombres ingresados en el campo
 function validarNombreIngresado(nombreUsuario){
     let nombreAmigoArray = [];
-
-    if(nombreUsuario === ''){
+    console.log(!campoAmigo)
+    if(!campoAmigo.value){
         alert('El campo está vacío')
         return false;
     }else{
@@ -46,15 +47,22 @@ function validarNombreIngresado(nombreUsuario){
 
 function mostrarLista(arrayAmigos){
     
-    let ulListaAmigos = document.getElementById('listaAmigos');
-    ulListaAmigos.innerHTML= '';
+ulListaAmigos.innerHTML= '';
     for(let i = 0; i < arrayAmigos.length ; i++){
-        ulListaAmigos.insertAdjacentHTML('afterbegin',`<li>${arrayAmigos[i]}</li>`);
+        ulListaAmigos.insertAdjacentHTML('beforeend',`<li>${arrayAmigos[i]}</li>`);
     }
 
 }
 
-function sortearAmigos(){
-    
-
+function sortearAmigo(){
+    console.log(listaAmigos==='');
+    if(listaAmigos.length === 0){
+        alert('Escriba un nombre  y pulse AÑADIR antes de sortear');
+        return false;
+    }else{
+        //ulListaAmigos.setAttribute('style','display:none');
+        let numeroAleatorio = Math.floor(Math.random()*listaAmigos.length);
+        console.log(numeroAleatorio);
+        resultado.insertAdjacentHTML('afterbegin',`<li>${listaAmigos[numeroAleatorio]}</li>`);
+    }
 }
