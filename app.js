@@ -1,8 +1,10 @@
 // El principal objetivo de este desafío es fortalecer tus habilidades en lógica de programación. Aquí deberás desarrollar la lógica para resolver el problema.
 let listaAmigos = [];
+let arrayNumSorteados = [];
 let campoAmigo = document.getElementById('amigo');
 let ulListaAmigos = document.getElementById('listaAmigos');
 let resultado = document.getElementById('resultado')
+let contador=0;
 
 function agregarAmigo(){
     
@@ -44,7 +46,7 @@ function validarNombreIngresado(nombreUsuario){
 
 
 }
-
+//muestra la lista en el HTML
 function mostrarLista(arrayAmigos){
     
 ulListaAmigos.innerHTML= '';
@@ -53,16 +55,41 @@ ulListaAmigos.innerHTML= '';
     }
 
 }
-
+//funcionalidad del boton 'Sortear Amigo'
 function sortearAmigo(){
-    console.log(listaAmigos==='');
+    
     if(listaAmigos.length === 0){
         alert('Escriba un nombre  y pulse AÑADIR antes de sortear');
         return false;
     }else{
-        //ulListaAmigos.setAttribute('style','display:none');
         let numeroAleatorio = Math.floor(Math.random()*listaAmigos.length);
-        console.log(numeroAleatorio);
-        resultado.insertAdjacentHTML('afterbegin',`<li>${listaAmigos[numeroAleatorio]}</li>`);
+        console.log(`num random ${numeroAleatorio}`);
+        let resul=listaDeNumAleatorios(numeroAleatorio);
+        if(resul == true){
+            sortearAmigo() ; }else if(resul == false){
+
+            }else{
+                console.log(resul);
+        console.log(`array num random ${arrayNumSorteados}`);
+        console.log(`num random ${numeroAleatorio}`);
+            resultado.innerHTML='';
+            resultado.insertAdjacentHTML('afterbegin',`<li>${listaAmigos[numeroAleatorio]}, quedan ${(listaAmigos.length)-contador} por sortear</li>`);
     }
+}
+}
+
+function listaDeNumAleatorios(numAleatorio){
+     
+     if (arrayNumSorteados.includes(numAleatorio)&&arrayNumSorteados.length<listaAmigos.length){
+        return true;
+     }else if (!arrayNumSorteados.includes(numAleatorio)&&arrayNumSorteados.length<listaAmigos.length){
+        contador++;
+        arrayNumSorteados.push(numAleatorio);
+        return;
+        }else{
+            alert('se sortearon todos los nombres');
+            return false;
+        }
+
+        
 }
