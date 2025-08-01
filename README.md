@@ -63,3 +63,46 @@ function validarNombreIngresado(nombreUsuario){
 
 ```
 Esto sigue siendo una solución parcial ya que no tiene en cuenta los carácteres con tilde o los nombres completos (nombre y apellido) , pero sigue siendo una mejora respecto a la medida inicial.  
+
+Un pequeño problema de recursividad
+La funcion antes: 
+sortearAmigo()
+  |
+  ├─ genera numeroAleatorio
+  ├─ llama listaDeNumAleatorios(numeroAleatorio)
+       |
+       ├─ Si número repetido:
+       |     └─ llama otra vez a sortearAmigo()  ← llamada recursiva
+       |           |
+       |           ├─ genera nuevo numeroAleatorio
+       |           ├─ llama listaDeNumAleatorios(nuevo numero)
+       |           └─ ... (repeticiones posibles)
+       |
+       └─ Si número nuevo:
+             └─ agrega al array
+  |
+  ├─ sigue ejecutando código DESPUÉS de listaDeNumAleatorios()
+       (aunque haya llamado recursivamente a sortearAmigo())
+  |
+  └─ termina ejecución y muestra resultado
+
+  Luego: 
+  sortearAmigo()
+  |
+  ├─ genera numeroAleatorio
+  ├─ llama listaDeNumAleatorios(numeroAleatorio)
+       |
+       ├─ Si número repetido y quedan números:
+       |     └─ devuelve TRUE
+       |
+       ├─ Si número nuevo:
+       |     └─ agrega al array y devuelve undefined
+       |
+       └─ Si ya se sortearon todos:
+             └─ devuelve FALSE
+  |
+  ├─ según resultado devuelto:
+       ├─ TRUE  → vuelve a llamar a sortearAmigo() (recursión controlada)
+       ├─ FALSE → termina (muestra alerta)
+       └─ undefined → muestra resultado y termina
+
